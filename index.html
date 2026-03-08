@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="blog.css" rel="stylesheet" type="text/css" media="all">
+
+    <style>
+
+
+
+    </style>
+
+  </head>
+  <body onload="program_init()">
+
+  <div id="preload_stuff"></div>
+  <link href="" rel="stylesheet" type="text/css" media="all" id="theme">
+
+    <div class="prompt_container" id="prompt_container" style="visibility:hidden;">
+      <div class="prompt">
+        
+        <div class="prompt_inner">
+
+        <p class="prompt_text" id="prompt_text" style="color:rgba(255, 255, 255, 0.925);">Create 
+          " <input type="text"> "<span style="color:rgb(182, 182, 182);">.txt</span>?</p>
+        
+
+
+
+        <div class="prompt_buttons" id="prompt_buttons">
+          <button onclick="prompt_cancel()">Cancel</button> 
+          <button id="prompt_confirm">empty</button>
+          <img src="icon_copy.png" id="prompt_create_css_dupe" onclick="create_css_dupe()" style="display:none;" class="prompt_extra">
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+
+
+  <div class="fileSelect_overflow">
+
+    <div class="fileSelect_container" id="tab_container" style="left:214px;">
+
+    <div class="tab_flex">
+
+
+      <div class="tab_icons">
+        <img src="icon_pc.png" class="tab_img" id="icon_file" onclick="filelist_toggle()">
+        <img src="icon_img.png" class="tab_img" id="icon_theme" onclick="theme_toggle()">
+      </div>
+
+      <div class="tab_left" id="tab_left"></div>
+      <div class="clip_triangle" id="tab_triangle"></div>
+
+    </div>
+
+
+    <div class="file_browser" id="file_browser" style="display:none;">
+
+      <div class="file_title">
+        <!-- File Browser -->
+        <p id="file_title"></p>
+      </div>
+
+      <div class="file_select" id="fileTree">
+
+        <ul class="folder_list" id="folder_list">
+        </ul>
+
+        <ul class="file_list" id="file_list">
+        </ul>
+
+        <p class="add_new" onclick="prompt('file_create')">+</p>
+
+
+      </div>
+
+    </div>
+
+
+
+    <div class="theme_editor" id="theme_editor" style="display:none;">
+
+
+      <div class="file_title">Themes</div>
+
+      <div class="theme_background">
+
+      <div class="css_toolbar">
+  
+  
+      <div style="background-color:rgba(0, 255, 255, 0.178); background-color:transparent; margin-top:-3px; position:relative;">
+  
+       <select id="css_select" onchange="change_css()"></select>
+
+      <img src="icon_arrow_down.png" onclick="theme_dropdown()" class="menu_arrow" id="menu_arrow">
+      <div class="contextMenu" id="theme_dropdown" style="visibility:hidden;">
+        <p onclick="prompt('create_css')">Create</p>
+        <hr>
+        <p onclick="prompt('theme_rename', document.getElementById('css_select').value)" id="list_cssRename">Rename</p>
+        <hr>
+        <p onclick="prompt('theme_delete', document.getElementById('css_select').value)" id="list_cssDelete">Delete</p>
+      </div>
+  
+      </div>
+  
+      <div class="theme_buttons">
+  
+
+
+        <div class="theme_bg">
+        <img onclick="bg_select()" src="icon_img.png" id="theme_bg" class="clickable">
+        <img onclick="theme_link()" src="icon_link_small.png" id="theme_link" class="clickable">
+        </div>
+
+      
+        <img onclick="save_css()" src="icon_save.png" id="css_save" class="clickable">
+
+
+        <img src="icon_unlocked.png" id="button_lock" class="button_lock" onclick="lock_toggle()">
+      </div>
+  
+      </div>
+  
+       <div id="color_select">
+  
+       <div class="input_header">Main</div>
+       <hr class="theme_hr">
+  
+       <div class="input_container">
+
+        <input type="color" class="input_color" id="primary-background">
+        <div class="preview_square square_opacity" onclick="popup_opacity('primary-background')"></div><div class="popup_opacity" id="popup_primary-background-opacity"><input type="range" class="input_range" min="0.6" max="1" step="0.1" id="primary-background-opacity"></div>
+        <p class="input_label">Background</p>
+  
+        <input type="color" class="input_color input_hidden" id="primary-text">
+        <p class="input_Aa primary-text">Aa</p>
+        <div class="preview_square square_opacity square_empty"></div><div class="popup_opacity" id="popup_primary-text-opacity"><input type="range" class="input_range" min="1" max="1" id="primary-text-opacity" value="1"></div>
+  
+       </div>
+  
+       <div class="input_container">
+        <input type="color" class="input_color" id="primary-border">
+        <div class="preview_square square_opacity" onclick="popup_opacity('primary-border')"></div><div class="popup_opacity" id="popup_primary-border-opacity"><input type="range" class="input_range" min="0.6" max="1" step="0.1" id="primary-border-opacity"></div>
+        <p class="input_label">Border</p>
+
+        <input type="color" class="input_color input_hidden" id="header-text">
+        <p class="input_Aa header-text">Aa</p>
+        <div class="preview_square square_opacity square_empty"></div><div class="popup_opacity" id="popup_header-text-opacity"><input type="range" class="input_range" min="1" max="1" id="header-text-opacity" value="1"></div>
+       </div>
+  
+       <div class="input_container" style="display:none;">
+        <input type="color" class="input_color" id="primary-header">
+        <div class="preview_square square_opacity" onclick="popup_opacity('primary-header')"></div><div class="popup_opacity" id="popup_primary-header-opacity"><input type="range" class="input_range" min="0.6" max="1" step="0.1" id="primary-header-opacity"></div>
+        <p class="input_label">Header</p>
+  
+       </div>
+  
+  
+       <div class="input_header" style="margin-top:20px;">Text Area</div>
+       <hr class="theme_hr">
+  
+  
+       <div class="input_container">
+        <input type="color" class="input_color" id="text-background">
+        <div class="preview_square square_opacity" onclick="popup_opacity('text-background')"></div><div class="popup_opacity" id="popup_text-background-opacity"><input type="range" class="input_range" min="0.1" max="1" step="0.1" id="text-background-opacity"></div>
+        <p class="input_label">Background</p>
+  
+        <input type="color" class="input_color input_hidden" id="text-color">
+        <p class="input_Aa text-color">Aa</p>
+        <div class="preview_square square_opacity square_empty"></div><div class="popup_opacity" id="popup_text-color-opacity"><input type="range" class="input_range" min="1" max="1" id="text-color-opacity" value="1"></div>
+  
+       </div>
+  
+       <div class="input_container">
+        <input type="color" class="input_color" id="text-border">
+        <div class="preview_square square_opacity" onclick="popup_opacity('text-border')"></div><div class="popup_opacity" id="popup_text-border-opacity"><input type="range" class="input_range" min="0.6" max="1" step="0.1" id="text-border-opacity"></div>
+        <p class="input_label">Border</p>
+       </div>
+  
+  
+        <img class="bg_current" id="bg_current" onclick="bglist_toggle()" style="display:none;">
+   
+      </div>
+  
+  
+  
+      <div class="bgList_container" id="background_list_container" style="visibility:hidden;">
+        <div class="backgrounds_small" id="background_list"></div>
+      </div>
+
+  </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+    <div class="main_thingy" id="main" style="left:350px; top:80px;">
+
+      <div class="title main_title" id="passage_title"></div>
+
+
+      <div class="main_buttons">
+
+        <div id="textopacity_holder"><button onclick="text_opacity()" style="color:rgba(255,255,255,0.4)" id="textopacity">Aa</button></div>
+        <button onclick="prompt('file_save', file_selected)" id="save_button">Save</button>
+
+      </div>
+
+
+      <textarea class="textarea" id="textarea" spellcheck="false" disabled></textarea>
+    </div>
+
+    <div class="css_container" id="theme_container" style="visibility:hidden;"></div>
+
+    <div class="contextMenu" id="contextMenu" style="display:none;">
+      <p onclick="prompt('file_rename', file_rightclick)">Rename</p>
+      <hr>
+      <p onclick="prompt('file_delete', file_rightclick)">Delete</p>
+    </div>
+
+  <script src="texteditor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+:root{
+    --primary-background:rgba(184, 184, 184, 0.9);
+    --primary-text:rgba(255, 255, 255, 1);
+    --primary-border:rgba(143, 143, 143, 0.8);
+    --primary-header:rgba(154, 159, 165, 1);
+    --header-text:rgba(255, 255, 255, 1);
+  
+    --text-background:rgba(143, 143, 143, 0.6);
+    --text-border:rgba(219, 219, 219, 1);
+    --text-color:rgba(255, 255, 255, 1);
+    --locked:false;
+}
